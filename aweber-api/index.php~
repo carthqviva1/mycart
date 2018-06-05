@@ -1,0 +1,65 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+<div id="paypal-button-container"></div>
+
+<script>
+
+   // Render the PayPal button
+
+   paypal.Button.render({
+
+       // Set your environment
+
+       env: 'sandbox', // sandbox | production
+
+       // Specify the style of the button
+
+       style: {
+           label: 'credit',
+           size:  'small', // small | medium | large | responsive
+           shape: 'rect',  // pill | rect
+       },
+
+       // PayPal Client IDs - replace with your own
+       // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+
+       client: {
+           sandbox:    'AVbYbAzT-P6NWwVmQ4zCqCIoPxdvJA9UM6bRJHGI0IKU1aOOL9zDl4oUDxcDaoWrlX4MgUW7wN6KoW_Z',
+           production: '<insert production client id>'
+       },
+
+       // Wait for the PayPal button to be clicked
+
+       payment: function(data, actions) {
+
+           // Set up a payment and make credit the landing page
+
+           return actions.payment.create({
+               payment: {
+                   transactions: [
+                       {
+                           amount: { total: '10.5', currency: 'USD' }
+                       }
+                   ],
+
+                   payer: {
+                       payment_method: 'paypal',
+                       external_selected_funding_instrument_type: 'CREDIT'
+                   }
+               }
+           });
+       },
+
+       // Wait for the payment to be authorized by the customer
+
+       onAuthorize: function(data, actions) {
+       	console.log(JSON.stringify(data));
+           return actions.payment.execute().then(function() {
+               window.alert('Payment Complete!');
+           });
+       }
+
+   }, '#paypal-button-container');
+
+</script>
