@@ -1,3 +1,3 @@
 <?php
-echo 'hi member login';
+echo 'hi member signup';
 ?>
