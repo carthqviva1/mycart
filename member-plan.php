@@ -1,4 +1,4 @@
 <?php
 echo 'hi member';
-echo 'this is member signup';
+echo 'this is member plan';
 ?>
