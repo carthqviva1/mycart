@@ -1,3 +1,3 @@
 <?php
-echo 'hi member signup';
+echo 'hi member signin file';
 ?>
